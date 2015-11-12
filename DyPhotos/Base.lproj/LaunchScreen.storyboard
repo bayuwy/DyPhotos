@@ -16,8 +16,18 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconDyCode" translatesAutoresizingMaskIntoConstraints="NO" id="A4V-nz-NNB">
+                                <rect key="frame" x="243" y="243" width="114" height="114"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="A4V-nz-NNB" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="art-mH-ma0"/>
+                            <constraint firstItem="A4V-nz-NNB" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="x6N-vw-qZD"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -25,4 +35,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="IconDyCode" width="114" height="114"/>
+    </resources>
 </document>
