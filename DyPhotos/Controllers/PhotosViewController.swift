@@ -17,7 +17,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     var location: [String: AnyObject]?
     
     var loadMoreLoadingView: UIActivityIndicatorView?
-    var loadingView: UIRefreshControl = {
+    lazy var loadingView: UIRefreshControl = {
         return UIRefreshControl()
     }()
     
@@ -196,7 +196,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         
         let photo = photos[indexPath.row]
         cell.nameLabel.text = photo.user?.fullName
-        cell.dateLabel.text = photo.createdTime?.timeAgoString
+        cell.dateLabel.text = photo.createdTime?.timeAgoString()
         cell.captionLabel.text = photo.caption
         
         cell.profileImageView.image = nil

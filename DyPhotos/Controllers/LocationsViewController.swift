@@ -7,9 +7,21 @@
 //
 
 import UIKit
+import CoreLocation
 
-class LocationsViewController: UITableViewController {
-
+class LocationsViewController: UITableViewController, CLLocationManagerDelegate {
+    
+    private var location: CLLocation?
+    private lazy var locationManager: CLLocationManager =  {
+        
+        let manager = CLLocationManager()
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestAlwaysAuthorization()
+        manager.delegate = self
+        
+        return manager
+    }()
+    
     var locations = [[String: AnyObject]]()
     
     override func viewDidLoad() {
@@ -50,21 +62,26 @@ class LocationsViewController: UITableViewController {
     
     func loadLocations() {
         
-        Engine.shared.searchLocations { (result, error) -> () in
-            
-            self.refreshControl?.endRefreshing()
-            
-            if let response = result as? [[String: AnyObject]] {
+        if let location = location {
+            Engine.shared.searchLocations(location.coordinate.latitude, longitude: location.coordinate.longitude) { (result, error) -> () in
                 
-                self.locations = response
-                self.tableView.reloadData()
-            }
-            if let _ = error {
+                self.refreshControl?.endRefreshing()
                 
+                if let response = result as? [[String: AnyObject]] {
+                    
+                    self.locations = response
+                    self.tableView.reloadData()
+                }
+                else if let _ = error {
+                    
+                }
+                else {
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("locationDidUpdate:"), name: kLocationDidUpdateNotification, object: nil)
+                }
             }
-            else {
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("locationDidUpdate:"), name: kLocationDidUpdateNotification, object: nil)
-            }
+        }
+        else {
+            locationManager.startUpdatingLocation()
         }
     }
     
@@ -100,5 +117,16 @@ class LocationsViewController: UITableViewController {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         performSegueWithIdentifier("showPhotos", sender: tableView.cellForRowAtIndexPath(indexPath))
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let newLocation = locations[0]
+        location = newLocation
+        
+        loadLocations()
+        manager.stopUpdatingLocation()
     }
 }

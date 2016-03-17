@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+// MKAnnotation wajib diimplement untuk membuat annotation (pin) di Map View
 class Annotation: NSObject, MKAnnotation {
 
     var photo: PhotoAroundLocation

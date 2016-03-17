@@ -61,6 +61,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Helpers
     
+    // Setup lokasi-lokasi gambar, dijadikan object Annotation dan dimasukkan ke Map View
     func setupAnnotations() {
         
         if let delegate = delegate {

@@ -20,7 +20,7 @@
 		3A130DD41BEB366F0082F2E0 /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A130DD31BEB366F0082F2E0 /* PhotoViewCell.swift */; };
 		3A8C6BA61BF473A10000B558 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA51BF473A10000B558 /* Annotation.swift */; };
 		3A8C6BA81BF47D2B0000B558 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA71BF47D2B0000B558 /* LocationsViewController.swift */; };
-		3A8C6BAA1BF490B00000B558 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA91BF490B00000B558 /* NSDateExtensions.swift */; };
+		3A8C6BAA1BF490B00000B558 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA91BF490B00000B558 /* NSDateExtension.swift */; };
 		3A934D1C1BF392F500F53B30 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D1B1BF392F500F53B30 /* Engine.swift */; };
 		3A934D1E1BF3952E00F53B30 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D1D1BF3952E00F53B30 /* Constants.swift */; };
 		3A934D201BF3974100F53B30 /* SighInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D1F1BF3974100F53B30 /* SighInViewController.swift */; };
@@ -33,6 +33,10 @@
 		3A934D331BF3A8A400F53B30 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D2D1BF3A8A400F53B30 /* Location.swift */; };
 		3A934D351BF3ADD200F53B30 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D341BF3ADD200F53B30 /* MapViewController.swift */; };
 		3A934D371BF3AE2900F53B30 /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D361BF3AE2900F53B30 /* ImageViewerViewController.swift */; };
+		3AC4BA0F1BF4F0C00014F7C8 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC4BA0E1BF4F0C00014F7C8 /* StringExtensionTests.swift */; };
+		3AC4BA121BF4F73A0014F7C8 /* NSDateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC4BA111BF4F73A0014F7C8 /* NSDateExtensionTests.swift */; };
+		3AC4BA161BF5BC770014F7C8 /* EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC4BA151BF5BC770014F7C8 /* EngineTests.swift */; };
+		3AC4BA291BF5D0FC0014F7C8 /* DyCode.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3AC4BA281BF5D0FC0014F7C8 /* DyCode.gpx */; };
 		3AD212FD1BEC8AF000DEF51C /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD212FB1BEC8AF000DEF51C /* User+CoreDataProperties.swift */; };
 		3AD212FE1BEC8AF000DEF51C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD212FC1BEC8AF000DEF51C /* User.swift */; };
 		3AD213001BECAB4D00DEF51C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD212FF1BECAB4D00DEF51C /* WebViewController.swift */; };
@@ -75,7 +79,7 @@
 		3A130DD31BEB366F0082F2E0 /* PhotoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewCell.swift; sourceTree = "<group>"; };
 		3A8C6BA51BF473A10000B558 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		3A8C6BA71BF47D2B0000B558 /* LocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
-		3A8C6BA91BF490B00000B558 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		3A8C6BA91BF490B00000B558 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		3A934D1B1BF392F500F53B30 /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		3A934D1D1BF3952E00F53B30 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A934D1F1BF3974100F53B30 /* SighInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SighInViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +93,10 @@
 		3A934D2D1BF3A8A400F53B30 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3A934D341BF3ADD200F53B30 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3A934D361BF3AE2900F53B30 /* ImageViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
+		3AC4BA0E1BF4F0C00014F7C8 /* StringExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		3AC4BA111BF4F73A0014F7C8 /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
+		3AC4BA151BF5BC770014F7C8 /* EngineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineTests.swift; sourceTree = "<group>"; };
+		3AC4BA281BF5D0FC0014F7C8 /* DyCode.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DyCode.gpx; sourceTree = "<group>"; };
 		3AD212FB1BEC8AF000DEF51C /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3AD212FC1BEC8AF000DEF51C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3AD212FF1BECAB4D00DEF51C /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -149,11 +157,12 @@
 				3A130D901BEB00980082F2E0 /* AppDelegate.swift */,
 				3A934D1D1BF3952E00F53B30 /* Constants.swift */,
 				3A934D241BF3A37A00F53B30 /* DyPhotos-Bridging-Header.h */,
-				3A130D941BEB00990082F2E0 /* Main.storyboard */,
 				3A130D9A1BEB00990082F2E0 /* Assets.xcassets */,
-				3A130D9C1BEB00990082F2E0 /* LaunchScreen.storyboard */,
-				3A130D9F1BEB00990082F2E0 /* Info.plist */,
 				3A130D971BEB00990082F2E0 /* DyPhotos.xcdatamodeld */,
+				3A130D9C1BEB00990082F2E0 /* LaunchScreen.storyboard */,
+				3A130D941BEB00990082F2E0 /* Main.storyboard */,
+				3A130D9F1BEB00990082F2E0 /* Info.plist */,
+				3AC4BA281BF5D0FC0014F7C8 /* DyCode.gpx */,
 			);
 			path = DyPhotos;
 			sourceTree = "<group>";
@@ -161,6 +170,9 @@
 		3A130DA71BEB00990082F2E0 /* DyPhotosTests */ = {
 			isa = PBXGroup;
 			children = (
+				3AD305891BF840790004A185 /* UITests */,
+				3AC4BA0B1BF4F03F0014F7C8 /* Extensions */,
+				3AC4BA141BF5BC660014F7C8 /* Models */,
 				3A130DA81BEB00990082F2E0 /* DyPhotosTests.swift */,
 				3A130DAA1BEB00990082F2E0 /* Info.plist */,
 			);
@@ -220,9 +232,33 @@
 			isa = PBXGroup;
 			children = (
 				3A934D221BF3A2E600F53B30 /* StringExtension.swift */,
-				3A8C6BA91BF490B00000B558 /* NSDateExtensions.swift */,
+				3A8C6BA91BF490B00000B558 /* NSDateExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3AC4BA0B1BF4F03F0014F7C8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3AC4BA0E1BF4F0C00014F7C8 /* StringExtensionTests.swift */,
+				3AC4BA111BF4F73A0014F7C8 /* NSDateExtensionTests.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		3AC4BA141BF5BC660014F7C8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3AC4BA151BF5BC770014F7C8 /* EngineTests.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3AD305891BF840790004A185 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +368,7 @@
 				3A130D9E1BEB00990082F2E0 /* LaunchScreen.storyboard in Resources */,
 				3A130D9B1BEB00990082F2E0 /* Assets.xcassets in Resources */,
 				3A130D961BEB00990082F2E0 /* Main.storyboard in Resources */,
+				3AC4BA291BF5D0FC0014F7C8 /* DyCode.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +415,7 @@
 				3A934D321BF3A8A400F53B30 /* Location+CoreDataProperties.swift in Sources */,
 				3A934D231BF3A2E600F53B30 /* StringExtension.swift in Sources */,
 				3A934D311BF3A8A400F53B30 /* GenericPhoto.swift in Sources */,
-				3A8C6BAA1BF490B00000B558 /* NSDateExtensions.swift in Sources */,
+				3A8C6BAA1BF490B00000B558 /* NSDateExtension.swift in Sources */,
 				3A934D1C1BF392F500F53B30 /* Engine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,7 +424,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AC4BA121BF4F73A0014F7C8 /* NSDateExtensionTests.swift in Sources */,
+				3AC4BA0F1BF4F0C00014F7C8 /* StringExtensionTests.swift in Sources */,
 				3A130DA91BEB00990082F2E0 /* DyPhotosTests.swift in Sources */,
+				3AC4BA161BF5BC770014F7C8 /* EngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,7 +564,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DyPhotos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -538,7 +578,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DyPhotos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 			};
@@ -552,6 +592,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DyPhotos.app/DyPhotos";
 			};
 			name = Debug;
@@ -564,6 +605,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DyPhotos.app/DyPhotos";
 			};
 			name = Release;

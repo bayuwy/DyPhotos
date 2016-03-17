@@ -1,5 +1,5 @@
 //
-//  NSDateExtensions.swift
+//  NSDateExtension.swift
 //  DyPhotos
 //
 //  Created by Bayu Yasaputro on 11/12/15.
@@ -10,10 +10,9 @@ import Foundation
 
 extension NSDate {
     
-    var timeAgoString: String {
+    func timeAgoString(date: NSDate = NSDate()) -> String {
         
         let calendar = NSCalendar.currentCalendar()
-        let date = NSDate()
         
         var earliest = earlierDate(date)
         var latest = (earliest == self) ? date : self;
