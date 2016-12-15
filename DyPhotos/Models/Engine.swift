@@ -29,7 +29,7 @@ class Engine: NSObject {
             accessToken = token
         }
         
-        var urlString = "https://api.instagram.com/v1/users/self/feed?access_token=\(accessToken)"
+        var urlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(accessToken)"
         if let maxId = maxId { urlString += "&max_id=\(maxId)" }
         
         if let url = NSURL(string: urlString) {
@@ -43,23 +43,22 @@ class Engine: NSObject {
                     do {
                         let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject]
                         
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        var photos = [Photo]()
+                        if let data = JSON["data"] as? [[String: AnyObject]] {
                             
-                            var photos = [Photo]()
-                            if let data = JSON["data"] as? [[String: AnyObject]] {
-                                
-                                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                                let moc = appDelegate.managedObjectContext
-                                
-                                for d in data {
-                                    if let photo = Photo.photoWithData(d, inManagedObjectContext: moc) {
-                                        photos.append(photo)
-                                    }
+                            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                            let moc = appDelegate.managedObjectContext
+                            
+                            for d in data {
+                                if let photo = Photo.photoWithData(d, inManagedObjectContext: moc) {
+                                    photos.append(photo)
                                 }
-                                
-                                appDelegate.saveContext()
                             }
                             
+                            appDelegate.saveContext()
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             completion(result: photos, error: nil)
                         })
                     }
@@ -83,6 +82,51 @@ class Engine: NSObject {
             }).resume()
         }
     }
+    
+    func recentMedia(maxId: String?, completion: CompletionHandler) {
+        
+        var accessToken = ""
+        if let token = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) {
+            accessToken = token
+        }
+        
+        var urlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(accessToken)"
+        if let maxId = maxId { urlString += "&max_id=\(maxId)" }
+        
+        if let url = NSURL(string: urlString) {
+            
+            let request = NSURLRequest(URL: url)
+            
+            let session = NSURLSession.sharedSession()
+            session.dataTaskWithRequest(request, completionHandler: { (data, _, error) -> Void in
+                
+                completion(result: data, error: error)
+                
+            }).resume()
+        }
+    }
+    
+    func mapPhotos(from json: [String: AnyObject]) -> [Photo] {
+        
+        var photos = [Photo]()
+        if let data = json["data"] as? [[String: AnyObject]] {
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let moc = appDelegate.managedObjectContext
+            
+            for d in data {
+                if let photo = Photo.photoWithData(d, inManagedObjectContext: moc) {
+                    photos.append(photo)
+                }
+            }
+            
+            appDelegate.saveContext()
+        }
+        
+        return photos
+    }
+    
+    
     
     func searchLocations(latitude: Double, longitude: Double, completion: CompletionHandler) {
         
@@ -155,23 +199,22 @@ class Engine: NSObject {
                     do {
                         let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject]
                         
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         var photos = [PhotoAroundLocation]()
+                        if let data = JSON["data"] as? [[String: AnyObject]] {
                             
-                            if let data = JSON["data"] as? [[String: AnyObject]] {
-                                
-                                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                                let moc = appDelegate.managedObjectContext
-                                
-                                for d in data {
-                                    if let photo = PhotoAroundLocation.photoWithData(d, inManagedObjectContext: moc) {
-                                        photos.append(photo)
-                                    }
+                            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                            let moc = appDelegate.managedObjectContext
+                            
+                            for d in data {
+                                if let photo = PhotoAroundLocation.photoWithData(d, inManagedObjectContext: moc) {
+                                    photos.append(photo)
                                 }
-                                
-                                appDelegate.saveContext()
                             }
                             
+                            appDelegate.saveContext()
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             completion(result: photos, error: nil)
                         })
                     }
@@ -199,9 +242,9 @@ class Engine: NSObject {
     func downloadImageWithUrl(url: NSURL, completion: CompletionHandler) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let fileUrl = appDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(url.absoluteString.md5)
+        let fileUrl = appDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(url.absoluteString!.md5)
         
-        if let imageData = NSData(contentsOfURL: fileUrl) {
+        if let imageData = NSData(contentsOfURL: fileUrl!) {
             
             let image = UIImage(data: imageData)
             completion(result: image, error: nil)
@@ -211,7 +254,7 @@ class Engine: NSObject {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 
                 let imageData = NSData(contentsOfURL: url)
-                imageData?.writeToURL(fileUrl, atomically: false)
+                imageData?.writeToURL(fileUrl!, atomically: false)
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     

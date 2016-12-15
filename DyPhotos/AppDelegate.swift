@@ -17,8 +17,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        if let accessToken = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) where accessToken.characters.count > 0 {
-            showMainViewController()
+        if let accessToken = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) {
+            if accessToken.characters.count > 0 {
+                showMainViewController()
+            }
         }
         
         return true

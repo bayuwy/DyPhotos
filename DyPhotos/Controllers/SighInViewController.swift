@@ -75,7 +75,7 @@ class SighInViewController: UIViewController, UIWebViewDelegate {
         activityIndicatorView.stopAnimating()
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         
         webView.alpha = 1.0
         activityIndicatorView.stopAnimating()

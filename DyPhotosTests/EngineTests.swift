@@ -2,15 +2,15 @@
 //  EngineTests.swift
 //  DyPhotos
 //
-//  Created by Bayu Yasaputro on 11/13/15.
-//  Copyright © 2015 DyCode. All rights reserved.
+//  Created by Bayu Yasaputro on 12/13/16.
+//  Copyright © 2016 DyCode. All rights reserved.
 //
 
 import XCTest
 @testable import DyPhotos
 
 class EngineTests: XCTestCase {
-
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -20,72 +20,42 @@ class EngineTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
+    
     func testMyFeed() {
         
-        let expectation = expectationWithDescription("Test myFeed")
+        let expextation = self.expectationWithDescription("Test myFeed")
         
-        Engine.shared.myFeed(nil) { (result, error) -> () in
-            expectation.fulfill()
+        Engine.shared.myFeed(nil) { (result, error) in
+            
+            if result != nil {
+                XCTAssertTrue(result is [Photo])
+            }
+            else if error != nil {
+                
+            }
+            else {
+                XCTFail()
+            }
+            
+            expextation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(5) { (error) -> Void in
+        self.waitForExpectationsWithTimeout(10) { (error) in
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print(error.localizedDescription)
             }
         }
     }
     
-    func testSearchLocations() {
+    func testMapPhotos() {
         
-        let expectation = expectationWithDescription("Test searchLocation")
+        let url = NSBundle(forClass: self.dynamicType).URLForResource("ValidJson", withExtension: "json")!
+        let data = NSData(contentsOfURL: url)
+        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String: AnyObject]
         
-        Engine.shared.searchLocations(-6.876569, longitude: 107.584254) { (result, error) -> () in
-            
-            if let _ = result as? [[String: AnyObject]] {
-                expectation.fulfill()
-            }
-            else if let _ = error {
-                expectation.fulfill()
-            }
-            else {
-                expectation.fulfill()
-            }
-        }
+        let photos = Engine.shared.mapPhotos(from: json)
         
-        waitForExpectationsWithTimeout(10) { (error) -> Void in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            }
-        }
+        XCTAssertTrue(photos.count > 0)
     }
     
-    func testPhotosAroundLocation() {
-        
-        let expectation = expectationWithDescription("Test photosAroundLocation")
-        
-        Engine.shared.photosAroundLocation("", maxId: nil, completion: { (result, error) -> () in
-            
-            if let result = result {
-                if result is [PhotoAroundLocation] {
-                    expectation.fulfill()
-                }
-                else {
-                    XCTAssert(false, "The result not [PhotoAroundLocation]")
-                }
-            }
-            else if let _ = error {
-                expectation.fulfill()
-            }
-            else {
-                expectation.fulfill()
-            }
-        })
-        
-        waitForExpectationsWithTimeout(5) { (error) -> Void in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            }
-        }
-    }
 }

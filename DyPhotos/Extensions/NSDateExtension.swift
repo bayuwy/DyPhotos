@@ -21,17 +21,18 @@ extension NSDate {
         let upToHours: NSCalendarUnit = [.Second, .Minute, .Hour]
         var difference = calendar.components(upToHours, fromDate: earliest, toDate: latest, options: [])
         
+        var dateString = ""
+        
         if difference.hour < 24 {
             if difference.hour >= 1 {
-                return "\(difference.hour)h"
+                dateString = "\(difference.hour)h"
             }
             else if (difference.minute >= 1) {
-                return "\(difference.minute)m"
+                dateString = "\(difference.minute)m"
             }
             else {
-                return "\(difference.second)s"
+                dateString = "\(difference.second)s"
             }
-            
         }
         else {
             let bigUnits: NSCalendarUnit = [.TimeZone, .Day, .WeekOfYear, .Year]
@@ -45,14 +46,16 @@ extension NSDate {
             difference = calendar.components(bigUnits, fromDate: earliest, toDate: latest, options: [])
             
             if difference.year >= 1 {
-                return "\(difference.year)y"
+                dateString = "\(difference.year)y"
             }
             else if (difference.weekOfYear >= 1) {
-                return "\(difference.weekOfYear)w"
+                dateString = "\(difference.weekOfYear)w"
             }
             else {
-                return "\(difference.day)d"
+                dateString = "\(difference.day)d"
             }
         }
+        
+        return dateString
     }
 }

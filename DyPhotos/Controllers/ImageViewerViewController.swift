@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewerViewController: UIViewController, UIScrollViewDelegate {
+class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImageViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
@@ -16,10 +16,12 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate {
     var imageUrlString: String?
     var image: UIImage?
     
+    var photosVC: PhotosViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
+        
         loadImage()
     }
     
@@ -59,7 +61,8 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate {
                 Engine.shared.downloadImageWithUrl(url, completion: { (result, error) -> () in
                     if let image = result as? UIImage {
                         
-                        let imageView = UIImageView(image: image)
+                        let imageView = DyImageView(image: image)
+//                        imageView.delegate = self
                         imageView.tag = 99
                         
                         self.scrollView.addSubview(imageView)
@@ -74,7 +77,7 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate {
                         self.scrollView.zoomScale = 1
                         
                         // Double tap gesture
-                        let doubleTap = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap:"))
+                        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewerViewController.handleDoubleTap(_:)))
                         doubleTap.numberOfTapsRequired = 2
                         doubleTap.numberOfTouchesRequired = 1
                         self.scrollView.addGestureRecognizer(doubleTap)
@@ -115,5 +118,11 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate {
             
             view.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
         }
+    }
+    
+    // MARK: - DyImageViewDelegate
+    
+    func foo(imageView: DyImageView) {
+        print("Foo")
     }
 }

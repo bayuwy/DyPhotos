@@ -76,7 +76,7 @@ class LocationsViewController: UITableViewController, CLLocationManagerDelegate 
                     
                 }
                 else {
-                    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("locationDidUpdate:"), name: kLocationDidUpdateNotification, object: nil)
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsViewController.locationDidUpdate(_:)), name: kLocationDidUpdateNotification, object: nil)
                 }
             }
         }

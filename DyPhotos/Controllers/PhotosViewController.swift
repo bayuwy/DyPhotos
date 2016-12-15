@@ -17,16 +17,18 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     var location: [String: AnyObject]?
     
     var loadMoreLoadingView: UIActivityIndicatorView?
-    lazy var loadingView: UIRefreshControl = {
+    var loadingView: UIRefreshControl = {
         return UIRefreshControl()
     }()
     
     var isLoading = false
     
+    var imageViewerVC: ImageViewerViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadingView.addTarget(self, action: Selector("refresh:"), forControlEvents: .ValueChanged)
+        loadingView.addTarget(self, action: #selector(PhotosViewController.refresh(_:)), forControlEvents: .ValueChanged)
         collectionView?.addSubview(loadingView)
         
         if location == nil {
@@ -52,10 +54,11 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
             if let cell = sender as? UICollectionViewCell {
                 if let indexPath = collectionView?.indexPathForCell(cell) {
                     
-                    let viewController = segue.destinationViewController as! ImageViewerViewController
+                    imageViewerVC = segue.destinationViewController as? ImageViewerViewController
                     
                     let photo = photos[indexPath.item]
-                    viewController.imageUrlString = photo.imageUrl
+                    imageViewerVC?.imageUrlString = photo.imageUrl
+                    imageViewerVC?.photosVC = self
                 }
             }
         }
