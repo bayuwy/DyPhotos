@@ -30,8 +30,8 @@ class EngineTests: XCTestCase {
             if result != nil {
                 XCTAssertTrue(result is [Photo])
             }
-            else if error != nil {
-                
+            else if let error = error {
+                XCTAssert(false, error.localizedDescription)
             }
             else {
                 XCTFail()
