@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import DyPhotos
 
 class DyPhotosUITests: XCTestCase {
         
@@ -20,10 +19,6 @@ class DyPhotosUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        
-        
-        
         
     }
 }
