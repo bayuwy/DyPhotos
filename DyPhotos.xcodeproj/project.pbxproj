@@ -600,7 +600,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b3ee3c48-7290-409d-a2f0-d4350161282e";
+				PROVISIONING_PROFILE = "04063461-ceb3-4c13-b0b8-d13243ddb148";
 				PROVISIONING_PROFILE_SPECIFIER = "DyPhotos2 Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;

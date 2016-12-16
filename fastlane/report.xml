@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+      
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.00067">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000404">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: cd .. &amp;&amp; mkdir -p ProvisioningProfiles" time="0.010489">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: sigh" time="12.778708">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: update_project_provisioning" time="0.41835">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: sigh" time="9.490275">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: update_project_provisioning" time="0.106023">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
