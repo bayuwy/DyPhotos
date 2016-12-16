@@ -327,7 +327,9 @@
 				TargetAttributes = {
 					3A130D8C1BEB00980082F2E0 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = JPZ6KYYR2L;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Manual;
 					};
 					3A130DA31BEB00990082F2E0 = {
 						CreatedOnToolsVersion = 7.1;
@@ -570,10 +572,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bayu Wy (UX2H58Q3NG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bayu Wy (UX2H58Q3NG)";
+				DEVELOPMENT_TEAM = JPZ6KYYR2L;
 				INFOPLIST_FILE = DyPhotos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "effe1462-12b9-4a23-b5ca-dd24dd24e57a";
+				PROVISIONING_PROFILE_SPECIFIER = "DyPhotos2 Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -585,10 +592,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dycode Cominfotech Development, PT. (JPZ6KYYR2L)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dycode Cominfotech Development, PT. (JPZ6KYYR2L)";
+				DEVELOPMENT_TEAM = JPZ6KYYR2L;
 				INFOPLIST_FILE = DyPhotos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b3ee3c48-7290-409d-a2f0-d4350161282e";
+				PROVISIONING_PROFILE_SPECIFIER = "DyPhotos2 Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
