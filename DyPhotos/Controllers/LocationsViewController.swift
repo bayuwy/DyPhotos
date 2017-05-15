@@ -11,8 +11,8 @@ import CoreLocation
 
 class LocationsViewController: UITableViewController, CLLocationManagerDelegate {
     
-    private var location: CLLocation?
-    private lazy var locationManager: CLLocationManager =  {
+    fileprivate var location: CLLocation?
+    fileprivate lazy var locationManager: CLLocationManager =  {
         
         let manager = CLLocationManager()
         manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -38,14 +38,14 @@ class LocationsViewController: UITableViewController, CLLocationManagerDelegate 
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showPhotos" {
             if let cell = sender as? UITableViewCell {
-                if let indexPath = tableView.indexPathForCell(cell) {
+                if let indexPath = tableView.indexPath(for: cell) {
                     
                     let location = locations[indexPath.row]
-                    let viewController = segue.destinationViewController as! PhotosViewController
+                    let viewController = segue.destination as! PhotosViewController
                     viewController.location = location
                 }
             }
@@ -54,9 +54,9 @@ class LocationsViewController: UITableViewController, CLLocationManagerDelegate 
     
     // MARK: - Helpers
     
-    func locationDidUpdate(sender: NSNotification) {
+    func locationDidUpdate(_ sender: Notification) {
         
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: kLocationDidUpdateNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: kLocationDidUpdateNotification, object: nil)
         loadLocations()
     }
     
@@ -72,11 +72,14 @@ class LocationsViewController: UITableViewController, CLLocationManagerDelegate 
                     self.locations = response
                     self.tableView.reloadData()
                 }
-                else if let _ = error {
+                else if let error = error {
                     
+                    let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
                 }
                 else {
-                    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsViewController.locationDidUpdate(_:)), name: kLocationDidUpdateNotification, object: nil)
+                    NotificationCenter.default.addObserver(self, selector: #selector(LocationsViewController.locationDidUpdate(_:)), name: kLocationDidUpdateNotification, object: nil)
                 }
             }
         }
@@ -87,22 +90,22 @@ class LocationsViewController: UITableViewController, CLLocationManagerDelegate 
     
     // MARK: - Actions
     
-    @IBAction func refresh(sender: UIRefreshControl) {
+    @IBAction func refresh(_ sender: UIRefreshControl) {
         loadLocations()
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locations.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("LocationCellId", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCellId", for: indexPath)
         
         // Configure the cell...
         let location = locations[indexPath.row]
@@ -113,15 +116,15 @@ class LocationsViewController: UITableViewController, CLLocationManagerDelegate 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("showPhotos", sender: tableView.cellForRowAtIndexPath(indexPath))
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "showPhotos", sender: tableView.cellForRow(at: indexPath))
     }
     
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let newLocation = locations[0]
         location = newLocation

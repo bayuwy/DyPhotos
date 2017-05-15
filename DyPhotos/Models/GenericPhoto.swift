@@ -14,20 +14,20 @@ class GenericPhoto: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-    internal class func photoWithData(data: [String: AnyObject], entity entityName: String, inManagedObjectContext moc: NSManagedObjectContext) -> GenericPhoto? {
+    internal class func photoWithData(_ data: [String: AnyObject], entity entityName: String, inManagedObjectContext moc: NSManagedObjectContext) -> GenericPhoto? {
         
         var photo: GenericPhoto?
         
-        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "photoId == %@", data["id"] as! String)
         
         do {
-            let photos = try moc.executeFetchRequest(fetchRequest) as! [GenericPhoto]
+            let photos = try moc.fetch(fetchRequest) as! [GenericPhoto]
             if photos.count > 0 {
                 photo = photos.first
             }
             else {
-                photo = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: moc) as? GenericPhoto
+                photo = NSEntityDescription.insertNewObject(forEntityName: entityName, into: moc) as? GenericPhoto
                 photo?.photoId = data["id"] as? String
             }
             
@@ -35,7 +35,7 @@ class GenericPhoto: NSManagedObject {
                 photo?.caption = caption
             }
             if let createdTime = data["created_time"] as? String {
-                photo?.createdTime = NSDate(timeIntervalSince1970: (createdTime as NSString).doubleValue)
+                photo?.createdTime = Date(timeIntervalSince1970: (createdTime as NSString).doubleValue)
             }
             
             if let imageUrl = data["images"]?["standard_resolution"] as? [String: AnyObject] {
@@ -60,13 +60,13 @@ class GenericPhoto: NSManagedObject {
         return photo
     }
     
-    internal class func photosWithEntity(entityName: String, inManagedObjectContext moc: NSManagedObjectContext) -> [GenericPhoto] {
+    internal class func photosWithEntity(_ entityName: String, inManagedObjectContext moc: NSManagedObjectContext) -> [GenericPhoto] {
         
-        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdTime", ascending: false)]
         
         do {
-            let photos = try moc.executeFetchRequest(fetchRequest) as! [GenericPhoto]
+            let photos = try moc.fetch(fetchRequest) as! [GenericPhoto]
             return photos
         }
         catch { }

@@ -14,20 +14,20 @@ class Location: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-    class func locationWithData(data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> Location? {
+    class func locationWithData(_ data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> Location? {
         
         var location: Location?
         
-        let fetchRequest = NSFetchRequest(entityName: "Location")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Location")
         fetchRequest.predicate = NSPredicate(format: "locationId == %@", data["id"] as! NSNumber)
         
         do {
-            let locations = try moc.executeFetchRequest(fetchRequest) as! [Location]
+            let locations = try moc.fetch(fetchRequest) as! [Location]
             if locations.count > 0 {
                 location = locations.first
             }
             else {
-                location = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: moc) as? Location
+                location = NSEntityDescription.insertNewObject(forEntityName: "Location", into: moc) as? Location
                 location?.locationId = data["id"] as? String
                 
                 if let latitude = data["latitude"] as? NSNumber {

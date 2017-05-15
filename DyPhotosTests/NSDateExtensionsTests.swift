@@ -23,19 +23,19 @@ class NSDateExtensionsTests: XCTestCase {
     
     func testTimeAgoString() {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd HH:mm:ss"
         
-        let date = dateFormatter.dateFromString("20160101 00:00:01")!
+        let date = dateFormatter.date(from: "20160101 00:00:01")!
         
-        let date1H = dateFormatter.dateFromString("20160101 01:00:01")!
-        let date3H = dateFormatter.dateFromString("20160101 04:00:00")!
+        let date1H = dateFormatter.date(from: "20160101 01:00:01")!
+        let date3H = dateFormatter.date(from: "20160101 04:00:00")!
         
-        let date1M = dateFormatter.dateFromString("20160101 00:01:01")!
-        let date3M = dateFormatter.dateFromString("20160101 00:04:00")!
+        let date1M = dateFormatter.date(from: "20160101 00:01:01")!
+        let date3M = dateFormatter.date(from: "20160101 00:04:00")!
         
-        let date1S = dateFormatter.dateFromString("20160101 00:00:02")!
-        let date3S = dateFormatter.dateFromString("20160101 00:00:04")!
+        let date1S = dateFormatter.date(from: "20160101 00:00:02")!
+        let date3S = dateFormatter.date(from: "20160101 00:00:04")!
         
         XCTAssertEqual(date1H.timeAgoString(date), "1h")
         XCTAssertEqual(date.timeAgoString(date3H), "3h")
@@ -48,9 +48,9 @@ class NSDateExtensionsTests: XCTestCase {
         
         
         
-        let dateD = dateFormatter.dateFromString("20160103 01:00:01")! // 2d
-        let dateW = dateFormatter.dateFromString("20160115 00:01:01")! // 2w
-        let dateY = dateFormatter.dateFromString("20180101 00:00:02")! // 2y
+        let dateD = dateFormatter.date(from: "20160103 01:00:01")! // 2d
+        let dateW = dateFormatter.date(from: "20160115 00:01:01")! // 2w
+        let dateY = dateFormatter.date(from: "20180101 00:00:02")! // 2y
         
         XCTAssertEqual(date1H.timeAgoString(date), "1h")
         XCTAssertEqual(date.timeAgoString(date3H), "3h")

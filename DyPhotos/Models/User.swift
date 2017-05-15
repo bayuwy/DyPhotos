@@ -14,20 +14,20 @@ class User: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-    class func userWithData(data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> User? {
+    class func userWithData(_ data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> User? {
         
         var user: User?
         
-        let fetchRequest = NSFetchRequest(entityName: "User")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         fetchRequest.predicate = NSPredicate(format: "userId == %@", data["id"] as! String)
         
         do {
-            let users = try moc.executeFetchRequest(fetchRequest) as! [User]
+            let users = try moc.fetch(fetchRequest) as! [User]
             if users.count > 0 {
                 user = users.first
             }
             else {
-                user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
+                user = NSEntityDescription.insertNewObject(forEntityName: "User", into: moc) as? User
                 user?.userId = data["id"] as? String
                 
                 if let username = data["username"] as? String {

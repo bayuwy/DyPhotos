@@ -28,7 +28,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadingView.addTarget(self, action: #selector(PhotosViewController.refresh(_:)), forControlEvents: .ValueChanged)
+        loadingView.addTarget(self, action: #selector(PhotosViewController.refresh(_:)), for: .valueChanged)
         collectionView?.addSubview(loadingView)
         
         if location == nil {
@@ -48,13 +48,13 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "previewImage" {
             if let cell = sender as? UICollectionViewCell {
-                if let indexPath = collectionView?.indexPathForCell(cell) {
+                if let indexPath = collectionView?.indexPath(for: cell) {
                     
-                    imageViewerVC = segue.destinationViewController as? ImageViewerViewController
+                    imageViewerVC = segue.destination as? ImageViewerViewController
                     
                     let photo = photos[indexPath.item]
                     imageViewerVC?.imageUrlString = photo.imageUrl
@@ -64,7 +64,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         }
         else if segue.identifier == "presentMap" {
             
-            let navController = segue.destinationViewController as! UINavigationController
+            let navController = segue.destination as! UINavigationController
             let viewController = navController.viewControllers.first as! MapViewController
             viewController.delegate = self
         }
@@ -74,13 +74,13 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     
     func loadLocalPhotos() {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let moc = appDelegate.managedObjectContext
         
         photos = Photo.photosInManagedObjectContext(moc)
     }
     
-    func loadRemotePhotos(more: Bool = false) {
+    func loadRemotePhotos(_ more: Bool = false) {
         
         if isLoading {
             return
@@ -116,7 +116,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     
     func loadLocalPhotosAroundLocation() {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let moc = appDelegate.managedObjectContext
         
         var locationId = ""
@@ -125,7 +125,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         photos = PhotoAroundLocation.photosWithLocation(locationId, inManagedObjectContext: moc)
     }
     
-    func loadRemotePhotosAroundLocation(more: Bool = false) {
+    func loadRemotePhotosAroundLocation(_ more: Bool = false) {
         
         if isLoading {
             return
@@ -164,9 +164,9 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     
     // MARK: - Actions
     
-    @IBAction func unwindToPhotosViewController(segue: UIStoryboardSegue) { }
+    @IBAction func unwindToPhotosViewController(_ segue: UIStoryboardSegue) { }
     
-    func refresh(sender: UIRefreshControl) {
+    func refresh(_ sender: UIRefreshControl) {
         
         if !isLoading {
             if location == nil {
@@ -183,17 +183,17 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     
     // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCellId", forIndexPath: indexPath) as! PhotoViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCellId", for: indexPath) as! PhotoViewCell
         let nextTag = cell.tag + 1
         cell.tag = nextTag
         
@@ -204,7 +204,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         
         cell.profileImageView.image = nil
         if let profilePicture = photo.user?.profilePicture {
-            if let url = NSURL(string: profilePicture) {
+            if let url = URL(string: profilePicture) {
                 
                 Engine.shared.downloadImageWithUrl(url, completion: { (result, error) -> () in
                     if cell.tag == nextTag {
@@ -217,7 +217,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         cell.photoImageView.image = nil
         cell.activityIndicatorView.stopAnimating()
         if let imageUrl = photo.imageUrl {
-            if let url = NSURL(string: imageUrl) {
+            if let url = URL(string: imageUrl) {
                 
                 cell.activityIndicatorView.startAnimating()
                 Engine.shared.downloadImageWithUrl(url, completion: { (result, error) -> () in
@@ -234,13 +234,13 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("previewImage", sender: collectionView.cellForItemAtIndexPath(indexPath))
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "previewImage", sender: collectionView.cellForItem(at: indexPath))
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "LoadMoreViewId", forIndexPath: indexPath)
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "LoadMoreViewId", for: indexPath)
         
         if let loadingView = view.viewWithTag(999) as? UIActivityIndicatorView {
             loadMoreLoadingView = loadingView
@@ -249,7 +249,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         return view
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = collectionView.frame.width
         var height = CGFloat(70) + width
@@ -257,7 +257,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         let photo = photos[indexPath.item]
         
         if let caption = photo.caption {
-            let rect = caption.boundingRectWithSize(CGSize(width: width - 20, height: CGFloat.max),
+            let rect = caption.boundingRectWithSize(CGSize(width: width - 20, height: CGFloat.greatestFiniteMagnitude),
                 font: UIFont(name: "AvenirNext-UltraLight", size: 15)!)
             height += rect.height
         }
@@ -265,7 +265,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
         return CGSize(width: width, height: height)
     }
     
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         if scrollView.contentSize.height >= scrollView.bounds.height {
             if scrollView.contentSize.height - (scrollView.contentOffset.y + scrollView.bounds.height) <= 44 {
@@ -282,16 +282,16 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     
     // MARK: - PhotoViewCellDelegate
     
-    func photoViewCellOpenLink(cell: PhotoViewCell) {
+    func photoViewCellOpenLink(_ cell: PhotoViewCell) {
         
-        if let indexPath = collectionView?.indexPathForCell(cell) {
+        if let indexPath = collectionView?.indexPath(for: cell) {
             let photo = photos[indexPath.row]
             
             if let link = photo.link {
-                if let url = NSURL(string: link) {
+                if let url = URL(string: link) {
                     
-                    let browser = SFSafariViewController(URL: url)
-                    presentViewController(browser, animated: true, completion: nil)
+                    let browser = SFSafariViewController(url: url)
+                    present(browser, animated: true, completion: nil)
                 }
             }
         }
@@ -299,7 +299,7 @@ class PhotosViewController: UICollectionViewController, UICollectionViewDelegate
     
     // MARK: - MapViewControllerDelegate
     
-    func mapViewControllerPhotos(viewController: MapViewController) -> [PhotoAroundLocation] {
+    func mapViewControllerPhotos(_ viewController: MapViewController) -> [PhotoAroundLocation] {
         return photos as! [PhotoAroundLocation]
     }
 }

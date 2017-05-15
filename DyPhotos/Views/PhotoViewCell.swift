@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PhotoViewCellDelegate {
-    func photoViewCellOpenLink(cell: PhotoViewCell)
+    func photoViewCellOpenLink(_ cell: PhotoViewCell)
 }
 
 class PhotoViewCell: UICollectionViewCell {
@@ -37,7 +37,7 @@ class PhotoViewCell: UICollectionViewCell {
         linkButton.layer.masksToBounds = true
     }
     
-    @IBAction func linkButtonTapped(sender: UIButton) {
+    @IBAction func linkButtonTapped(_ sender: UIButton) {
         if let delegate = delegate {
             delegate.photoViewCellOpenLink(self)
         }

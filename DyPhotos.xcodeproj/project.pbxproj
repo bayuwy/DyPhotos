@@ -22,10 +22,9 @@
 		3A206C031DFFDBF100FCDC8C /* NSDateExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A206C021DFFDBF100FCDC8C /* NSDateExtensionsTests.swift */; };
 		3A206C061DFFEF6600FCDC8C /* EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A206C051DFFEF6600FCDC8C /* EngineTests.swift */; };
 		3A206C081DFFFA7F00FCDC8C /* ValidJson.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A206C071DFFFA7F00FCDC8C /* ValidJson.json */; };
-		3A5B46461BFB083F00CBEEA3 /* DyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B46451BFB083F00CBEEA3 /* DyImageView.swift */; };
 		3A8C6BA61BF473A10000B558 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA51BF473A10000B558 /* Annotation.swift */; };
 		3A8C6BA81BF47D2B0000B558 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA71BF47D2B0000B558 /* LocationsViewController.swift */; };
-		3A8C6BAA1BF490B00000B558 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA91BF490B00000B558 /* NSDateExtension.swift */; };
+		3A8C6BAA1BF490B00000B558 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C6BA91BF490B00000B558 /* DateExtension.swift */; };
 		3A934D1C1BF392F500F53B30 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D1B1BF392F500F53B30 /* Engine.swift */; };
 		3A934D1E1BF3952E00F53B30 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D1D1BF3952E00F53B30 /* Constants.swift */; };
 		3A934D201BF3974100F53B30 /* SighInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A934D1F1BF3974100F53B30 /* SighInViewController.swift */; };
@@ -83,10 +82,9 @@
 		3A206C021DFFDBF100FCDC8C /* NSDateExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionsTests.swift; sourceTree = "<group>"; };
 		3A206C051DFFEF6600FCDC8C /* EngineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineTests.swift; sourceTree = "<group>"; };
 		3A206C071DFFFA7F00FCDC8C /* ValidJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ValidJson.json; sourceTree = "<group>"; };
-		3A5B46451BFB083F00CBEEA3 /* DyImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DyImageView.swift; sourceTree = "<group>"; };
 		3A8C6BA51BF473A10000B558 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		3A8C6BA71BF47D2B0000B558 /* LocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
-		3A8C6BA91BF490B00000B558 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		3A8C6BA91BF490B00000B558 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		3A934D1B1BF392F500F53B30 /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		3A934D1D1BF3952E00F53B30 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A934D1F1BF3974100F53B30 /* SighInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SighInViewController.swift; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				3A130DD31BEB366F0082F2E0 /* PhotoViewCell.swift */,
-				3A5B46451BFB083F00CBEEA3 /* DyImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -254,7 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				3A934D221BF3A2E600F53B30 /* StringExtension.swift */,
-				3A8C6BA91BF490B00000B558 /* NSDateExtension.swift */,
+				3A8C6BA91BF490B00000B558 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -328,17 +325,17 @@
 					3A130D8C1BEB00980082F2E0 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = JPZ6KYYR2L;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 					};
 					3A130DA31BEB00990082F2E0 = {
 						CreatedOnToolsVersion = 7.1;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 						TestTargetID = 3A130D8C1BEB00980082F2E0;
 					};
 					3A130DAE1BEB00990082F2E0 = {
 						CreatedOnToolsVersion = 7.1;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 						TestTargetID = 3A130D8C1BEB00980082F2E0;
 					};
 				};
@@ -400,7 +397,6 @@
 				3A130DD41BEB366F0082F2E0 /* PhotoViewCell.swift in Sources */,
 				3A934D1E1BF3952E00F53B30 /* Constants.swift in Sources */,
 				3A8C6BA61BF473A10000B558 /* Annotation.swift in Sources */,
-				3A5B46461BFB083F00CBEEA3 /* DyImageView.swift in Sources */,
 				3A934D301BF3A8A400F53B30 /* GenericPhoto+CoreDataProperties.swift in Sources */,
 				3A934D351BF3ADD200F53B30 /* MapViewController.swift in Sources */,
 				3AD212FD1BEC8AF000DEF51C /* User+CoreDataProperties.swift in Sources */,
@@ -420,7 +416,7 @@
 				3A934D321BF3A8A400F53B30 /* Location+CoreDataProperties.swift in Sources */,
 				3A934D231BF3A2E600F53B30 /* StringExtension.swift in Sources */,
 				3A934D311BF3A8A400F53B30 /* GenericPhoto.swift in Sources */,
-				3A8C6BAA1BF490B00000B558 /* NSDateExtension.swift in Sources */,
+				3A8C6BAA1BF490B00000B558 /* DateExtension.swift in Sources */,
 				3A934D1C1BF392F500F53B30 /* Engine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,14 +572,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bayu Wy (UX2H58Q3NG)";
 				DEVELOPMENT_TEAM = JPZ6KYYR2L;
 				INFOPLIST_FILE = DyPhotos/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "effe1462-12b9-4a23-b5ca-dd24dd24e57a";
-				PROVISIONING_PROFILE_SPECIFIER = "DyPhotos2 Development";
+				PROVISIONING_PROFILE = "b3ee3c48-7290-409d-a2f0-d4350161282e";
+				PROVISIONING_PROFILE_SPECIFIER = "DyPhotos2 Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -597,13 +594,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dycode Cominfotech Development, PT. (JPZ6KYYR2L)";
 				DEVELOPMENT_TEAM = JPZ6KYYR2L;
 				INFOPLIST_FILE = DyPhotos/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotos2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "04063461-ceb3-4c13-b0b8-d13243ddb148";
 				PROVISIONING_PROFILE_SPECIFIER = "DyPhotos2 Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -617,7 +615,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DyPhotos.app/DyPhotos";
 			};
 			name = Debug;
@@ -631,7 +629,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DyPhotos/DyPhotos-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DyPhotos.app/DyPhotos";
 			};
 			name = Release;
@@ -643,7 +641,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotosUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = DyPhotos;
 				USES_XCTRUNNER = YES;
 			};
@@ -656,7 +654,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dycode.DyPhotosUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = DyPhotos;
 				USES_XCTRUNNER = YES;
 			};

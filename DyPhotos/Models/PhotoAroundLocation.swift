@@ -14,20 +14,20 @@ class PhotoAroundLocation: GenericPhoto {
 
 // Insert code here to add functionality to your managed object subclass
 
-    class func photoWithData(data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> PhotoAroundLocation? {
+    class func photoWithData(_ data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> PhotoAroundLocation? {
         return GenericPhoto.photoWithData(data, entity: "PhotoAroundLocation", inManagedObjectContext: moc) as? PhotoAroundLocation
     }
     
-    class func photosWithLocation(locationId: String, inManagedObjectContext moc: NSManagedObjectContext) -> [PhotoAroundLocation] {
+    class func photosWithLocation(_ locationId: String, inManagedObjectContext moc: NSManagedObjectContext) -> [PhotoAroundLocation] {
         
         var photos = [PhotoAroundLocation]()
         
-        let request = NSFetchRequest(entityName: "PhotoAroundLocation")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PhotoAroundLocation")
         request.predicate = NSPredicate(format: "location.locationId == %@", locationId)
         request.sortDescriptors = [NSSortDescriptor(key: "createdTime", ascending: false)]
         
         do {
-            photos = try moc.executeFetchRequest(request) as! [PhotoAroundLocation]
+            photos = try moc.fetch(request) as! [PhotoAroundLocation]
         }
         catch {
             

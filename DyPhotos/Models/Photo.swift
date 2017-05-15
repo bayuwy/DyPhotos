@@ -14,12 +14,12 @@ class Photo: GenericPhoto {
 
 // Insert code here to add functionality to your managed object subclass
 
-    class func photoWithData(data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> Photo? {
+    class func photoWithData(_ data: [String: AnyObject], inManagedObjectContext moc: NSManagedObjectContext) -> Photo? {
         return GenericPhoto.photoWithData(data, entity: "Photo", inManagedObjectContext: moc) as? Photo
     }
     
     
-    class func photosInManagedObjectContext(moc: NSManagedObjectContext) -> [Photo] {
+    class func photosInManagedObjectContext(_ moc: NSManagedObjectContext) -> [Photo] {
         return GenericPhoto.photosWithEntity("Photo", inManagedObjectContext: moc) as! [Photo]
     }
 }

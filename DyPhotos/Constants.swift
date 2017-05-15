@@ -6,8 +6,10 @@
 //  Copyright © 2015 DyCode. All rights reserved.
 //
 
+import Foundation
+
 let kAccessTokenKey = "kAccessTokenKey"
-let kLocationDidUpdateNotification = "kLocationDidUpdateNotification"
+let kLocationDidUpdateNotification = Notification.Name("kLocationDidUpdateNotification")
 
 let CLIENT_ID = "749a0fe7ff0b4010a1dc2f854aaa6557"
 let CLIENT_SECRET = "1f94f861c4c64e93b66396a5a1390b57"

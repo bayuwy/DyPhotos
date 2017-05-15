@@ -15,7 +15,7 @@ import CoreData
 extension GenericPhoto {
 
     @NSManaged var caption: String?
-    @NSManaged var createdTime: NSDate?
+    @NSManaged var createdTime: Date?
     @NSManaged var imageUrl: String?
     @NSManaged var link: String?
     @NSManaged var photoId: String?

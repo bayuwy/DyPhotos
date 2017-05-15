@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-typealias CompletionHandler = (result: AnyObject?, error: NSError?) -> ()
+typealias CompletionHandler = (_ result: Any?, _ error: Error?) -> ()
 
 var engineInitialized = false
 
@@ -22,31 +22,31 @@ class Engine: NSObject {
         return Static.instance
     }
     
-    func myFeed(maxId: String?, completion: CompletionHandler) {
+    func myFeed(_ maxId: String?, completion: @escaping CompletionHandler) {
         
         var accessToken = ""
-        if let token = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) {
+        if let token = UserDefaults.standard.string(forKey: kAccessTokenKey) {
             accessToken = token
         }
         
         var urlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(accessToken)"
         if let maxId = maxId { urlString += "&max_id=\(maxId)" }
         
-        if let url = NSURL(string: urlString) {
+        if let url = URL(string: urlString) {
             
-            let request = NSURLRequest(URL: url)
+            let request = URLRequest(url: url)
             
-            let session = NSURLSession.sharedSession()
-            session.dataTaskWithRequest(request, completionHandler: { (data, _, error) -> Void in
+            let session = URLSession.shared
+            session.dataTask(with: request, completionHandler: { (data, _, error) -> Void in
                 
                 if let data = data {
                     do {
-                        let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject]
+                        let JSON = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as! [String: AnyObject]
                         
                         var photos = [Photo]()
                         if let data = JSON["data"] as? [[String: AnyObject]] {
                             
-                            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
                             let moc = appDelegate.managedObjectContext
                             
                             for d in data {
@@ -58,24 +58,24 @@ class Engine: NSObject {
                             appDelegate.saveContext()
                         }
                         
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(result: photos, error: nil)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            completion(photos as AnyObject, nil)
                         })
                     }
                     catch let jsonError as NSError {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(result: nil, error: jsonError)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            completion(nil, jsonError)
                         })
                     }
                 }
                 else if let error = error {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(result: nil, error: error)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        completion(nil, error as NSError)
                     })
                 }
                 else {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(result: nil, error: nil)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        completion(nil, nil)
                     })
                 }
                 
@@ -83,24 +83,24 @@ class Engine: NSObject {
         }
     }
     
-    func recentMedia(maxId: String?, completion: CompletionHandler) {
+    func recentMedia(_ maxId: String?, completion: @escaping CompletionHandler) {
         
         var accessToken = ""
-        if let token = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) {
+        if let token = UserDefaults.standard.string(forKey: kAccessTokenKey) {
             accessToken = token
         }
         
         var urlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(accessToken)"
         if let maxId = maxId { urlString += "&max_id=\(maxId)" }
         
-        if let url = NSURL(string: urlString) {
+        if let url = URL(string: urlString) {
             
-            let request = NSURLRequest(URL: url)
+            let request = URLRequest(url: url)
             
-            let session = NSURLSession.sharedSession()
-            session.dataTaskWithRequest(request, completionHandler: { (data, _, error) -> Void in
+            let session = URLSession.shared
+            session.dataTask(with: request, completionHandler: { (data, _, error) -> Void in
                 
-                completion(result: data, error: error)
+                completion(data, error)
                 
             }).resume()
         }
@@ -111,7 +111,7 @@ class Engine: NSObject {
         var photos = [Photo]()
         if let data = json["data"] as? [[String: AnyObject]] {
             
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let moc = appDelegate.managedObjectContext
             
             for d in data {
@@ -128,10 +128,10 @@ class Engine: NSObject {
     
     
     
-    func searchLocations(latitude: Double, longitude: Double, completion: CompletionHandler) {
+    func searchLocations(_ latitude: Double, longitude: Double, completion: @escaping CompletionHandler) {
         
         var accessToken = ""
-        if let token = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) {
+        if let token = UserDefaults.standard.string(forKey: kAccessTokenKey) {
             accessToken = token
         }
         
@@ -140,69 +140,80 @@ class Engine: NSObject {
         
         let urlString = "https://api.instagram.com/v1/locations/search?lat=\(latString)&lng=\(lngString)&access_token=\(accessToken)"
         
-        if let url = NSURL(string: urlString) {
+        if let url = URL(string: urlString) {
             
-            let request = NSURLRequest(URL: url)
+            let request = URLRequest(url: url)
             
-            let session = NSURLSession.sharedSession()
-            session.dataTaskWithRequest(request, completionHandler: { (data, _, error) -> Void in
+            let session = URLSession.shared
+            session.dataTask(with: request, completionHandler: { (data, _, error) -> Void in
                 
                 if let data = data {
                     do {
-                        let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject]
+                        let JSON = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as! [String: AnyObject]
                         
                         if let data = JSON["data"] as? [[String: AnyObject]] {
                             
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                completion(result: data, error: nil)
+                            DispatchQueue.main.async(execute: { () -> Void in
+                                completion(data as AnyObject, nil)
+                            })
+                        }
+                        else {
+                            var errorMessage = "Ooppss! Something wrong..."
+                            if let message = JSON["meta"]?["error_message"] as? String {
+                                errorMessage = message
+                            }
+                            
+                            let error = NSError(domain: "DYPHOTOS", code: 0, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                            DispatchQueue.main.async(execute: { () -> Void in
+                                completion(nil, error)
                             })
                         }
                     }
                     catch let jsonError as NSError {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(result: nil, error: jsonError)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            completion(nil, jsonError)
                         })
                     }
                 }
                 else if let error = error {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(result: nil, error: error)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        completion(nil, error as NSError)
                     })
                 }
                 else {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(result: nil, error: nil)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        completion(nil, nil)
                     })
                 }
             }).resume()
         }
     }
 
-    func photosAroundLocation(locatioId: String, maxId: String?, completion: CompletionHandler) {
+    func photosAroundLocation(_ locatioId: String, maxId: String?, completion: @escaping CompletionHandler) {
         
         var accessToken = ""
-        if let token = NSUserDefaults.standardUserDefaults().stringForKey(kAccessTokenKey) {
+        if let token = UserDefaults.standard.string(forKey: kAccessTokenKey) {
             accessToken = token
         }
         
         var urlString = "https://api.instagram.com/v1/locations/\(locatioId)/media/recent?access_token=\(accessToken)"
         if let maxId = maxId { urlString += "&max_id=\(maxId)" }
         
-        if let url = NSURL(string: urlString) {
+        if let url = URL(string: urlString) {
             
-            let request = NSURLRequest(URL: url)
+            let request = URLRequest(url: url)
             
-            let session = NSURLSession.sharedSession()
-            session.dataTaskWithRequest(request, completionHandler: { (data, _, error) -> Void in
+            let session = URLSession.shared
+            session.dataTask(with: request, completionHandler: { (data, _, error) -> Void in
                 
                 if let data = data {
                     do {
-                        let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject]
+                        let JSON = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as! [String: AnyObject]
                         
                         var photos = [PhotoAroundLocation]()
                         if let data = JSON["data"] as? [[String: AnyObject]] {
                             
-                            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
                             let moc = appDelegate.managedObjectContext
                             
                             for d in data {
@@ -214,24 +225,24 @@ class Engine: NSObject {
                             appDelegate.saveContext()
                         }
                         
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(result: photos, error: nil)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            completion(photos as AnyObject, nil)
                         })
                     }
                     catch let jsonError as NSError {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(result: nil, error: jsonError)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            completion(nil, jsonError)
                         })
                     }
                 }
                 else if let error = error {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(result: nil, error: error)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        completion(nil, error as NSError)
                     })
                 }
                 else {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(result: nil, error: nil)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        completion(nil, nil)
                     })
                 }
                 
@@ -239,31 +250,31 @@ class Engine: NSObject {
         }
     }
     
-    func downloadImageWithUrl(url: NSURL, completion: CompletionHandler) {
+    func downloadImageWithUrl(_ url: URL, completion: @escaping CompletionHandler) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let fileUrl = appDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(url.absoluteString!.md5)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let fileUrl = appDelegate.applicationDocumentsDirectory.appendingPathComponent(url.absoluteString.md5)
         
-        if let imageData = NSData(contentsOfURL: fileUrl!) {
+        if let imageData = try? Data(contentsOf: fileUrl) {
             
             let image = UIImage(data: imageData)
-            completion(result: image, error: nil)
+            completion(image, nil)
         }
         else {
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            DispatchQueue.global(qos: .default).async(execute: { () -> Void in
                 
-                let imageData = NSData(contentsOfURL: url)
-                imageData?.writeToURL(fileUrl!, atomically: false)
+                let imageData = try? Data(contentsOf: url)
+                try? imageData?.write(to: fileUrl, options: [])
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     
                     if let imageData = imageData {
                         let image = UIImage(data: imageData)
-                        completion(result: image, error: nil)
+                        completion(image, nil)
                     }
                     else {
-                        completion(result: nil, error: nil)
+                        completion(nil, nil)
                     }
                 })
             })

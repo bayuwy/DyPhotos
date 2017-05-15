@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImageViewDelegate {
+class ImageViewerViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
@@ -34,7 +34,7 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImage
         super.viewWillLayoutSubviews()
         
         if let image = image {
-            let minScale = min(UIScreen.mainScreen().bounds.width / image.size.width, UIScreen.mainScreen().bounds.height / image.size.height)
+            let minScale = min(UIScreen.main.bounds.width / image.size.width, UIScreen.main.bounds.height / image.size.height)
             scrollView.minimumZoomScale = minScale
             
             scrollView.zoomScale = max(minScale, scrollView.zoomScale)
@@ -56,13 +56,12 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImage
     func loadImage() {
         
         if let imageUrlString = imageUrlString {
-            if let url = NSURL(string: imageUrlString) {
+            if let url = URL(string: imageUrlString) {
                 
                 Engine.shared.downloadImageWithUrl(url, completion: { (result, error) -> () in
                     if let image = result as? UIImage {
                         
-                        let imageView = DyImageView(image: image)
-//                        imageView.delegate = self
+                        let imageView = UIImageView(image: image)
                         imageView.tag = 99
                         
                         self.scrollView.addSubview(imageView)
@@ -70,7 +69,7 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImage
                         
                         self.scrollView.delegate = self
                         
-                        let minScale = min(UIScreen.mainScreen().bounds.width / image.size.width, UIScreen.mainScreen().bounds.height / image.size.height)
+                        let minScale = min(UIScreen.main.bounds.width / image.size.width, UIScreen.main.bounds.height / image.size.height)
                         self.scrollView.minimumZoomScale = minScale
                         self.scrollView.maximumZoomScale = 2.0
                         
@@ -89,9 +88,9 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImage
         }
     }
     
-    func handleDoubleTap(sender: UITapGestureRecognizer) {
+    func handleDoubleTap(_ sender: UITapGestureRecognizer) {
         
-        if sender.state == UIGestureRecognizerState.Ended {
+        if sender.state == UIGestureRecognizerState.ended {
             
             if scrollView.zoomScale == scrollView.minimumZoomScale {
                 scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
@@ -102,14 +101,17 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImage
         }
     }
     
-    // MARK: - UIScrollViewDelegate
+}
+
+// MARK: - UIScrollViewDelegate
+extension ImageViewerViewController: UIScrollViewDelegate {
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         
         return scrollView.viewWithTag(99)
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         
         if let view = scrollView.viewWithTag(99) {
             
@@ -118,11 +120,5 @@ class ImageViewerViewController: UIViewController, UIScrollViewDelegate, DyImage
             
             view.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
         }
-    }
-    
-    // MARK: - DyImageViewDelegate
-    
-    func foo(imageView: DyImageView) {
-        print("Foo")
     }
 }

@@ -19,15 +19,15 @@ class SighInViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
-        if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {
+        URLCache.shared.removeAllCachedResponses()
+        if let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
-                NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+                HTTPCookieStorage.shared.deleteCookie(cookie)
             }
         }
         
-        if let url = NSURL(string: authorizationURL) {
-            let request = NSURLRequest(URL: url)
+        if let url = URL(string: authorizationURL) {
+            let request = URLRequest(url: url)
             webView.loadRequest(request)
         }
     }
@@ -37,22 +37,22 @@ class SighInViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     // MARK: - UIWebViewDelegate
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        if let urlString = request.URL?.absoluteString {
-            if (urlString.rangeOfString("\(REDIRECT_URI)#access_token=") != nil) {
-                if let accessToken = urlString.componentsSeparatedByString("=").last {
+        if let urlString = request.url?.absoluteString {
+            if (urlString.range(of: "\(REDIRECT_URI)#access_token=") != nil) {
+                if let accessToken = urlString.components(separatedBy: "=").last {
                     
-                    NSUserDefaults.standardUserDefaults().setObject(accessToken, forKey: kAccessTokenKey)
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    UserDefaults.standard.set(accessToken, forKey: kAccessTokenKey)
+                    UserDefaults.standard.synchronize()
                     
-                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     appDelegate.showMainViewController()
                     
                     return false
@@ -63,19 +63,19 @@ class SighInViewController: UIViewController, UIWebViewDelegate {
         return true
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidStartLoad(_ webView: UIWebView) {
         
         webView.alpha = 0.2
         activityIndicatorView.startAnimating()
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         
         webView.alpha = 1.0
         activityIndicatorView.stopAnimating()
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         
         webView.alpha = 1.0
         activityIndicatorView.stopAnimating()

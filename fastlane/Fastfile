@@ -72,13 +72,6 @@ end
 # fastlane reports which actions are used
 # No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
 
-lane :sadsa do 
-
-	sh "cd .. && cp ./ProvisioningProfiles/* /Library/Developer/XcodeServer/ProvisioningProfiles/"
-
-end
-
-
 lane :provision do
 
   	ENV['SIGH_APP_IDENTIFIER'] = 'com.dycode.DyPhotos2’

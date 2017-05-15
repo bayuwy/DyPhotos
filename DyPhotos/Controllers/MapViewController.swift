@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 protocol MapViewControllerDelegate {
-    func mapViewControllerPhotos(viewController: MapViewController) -> [PhotoAroundLocation]
+    func mapViewControllerPhotos(_ viewController: MapViewController) -> [PhotoAroundLocation]
 }
 
 class MapViewController: UIViewController, MKMapViewDelegate {
@@ -24,7 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupAnnotations()
     }
@@ -34,13 +34,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "previewImage" {
             if let view = sender as? MKAnnotationView {
                 if let annotation = view.annotation as? Annotation {
                     
-                    let viewController = segue.destinationViewController as! ImageViewerViewController
+                    let viewController = segue.destination as! ImageViewerViewController
                     
                     let photo = annotation.photo
                     viewController.imageUrlString = photo.imageUrl
@@ -79,19 +79,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation is MKUserLocation {
             return nil
         }
         
         let AnnotationIdentifier = "Annotation"
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(AnnotationIdentifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: AnnotationIdentifier)
         
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: AnnotationIdentifier)
             annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: UIButtonType.detailDisclosure)
         }
         
         annotationView?.annotation = annotation
@@ -119,7 +119,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return annotationView;
     }
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        performSegueWithIdentifier("previewImage", sender: view)
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        performSegue(withIdentifier: "previewImage", sender: view)
     }
 }

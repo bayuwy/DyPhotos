@@ -23,7 +23,7 @@ class EngineTests: XCTestCase {
     
     func testMyFeed() {
         
-        let expextation = self.expectationWithDescription("Test myFeed")
+        let expextation = self.expectation(description: "Test myFeed")
         
         Engine.shared.myFeed(nil) { (result, error) in
             
@@ -40,7 +40,7 @@ class EngineTests: XCTestCase {
             expextation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(10) { (error) in
+        self.waitForExpectations(timeout: 10) { (error) in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -49,9 +49,9 @@ class EngineTests: XCTestCase {
     
     func testMapPhotos() {
         
-        let url = NSBundle(forClass: self.dynamicType).URLForResource("ValidJson", withExtension: "json")!
-        let data = NSData(contentsOfURL: url)
-        let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String: AnyObject]
+        let url = Bundle(for: type(of: self)).url(forResource: "ValidJson", withExtension: "json")!
+        let data = try? Data(contentsOf: url)
+        let json = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: AnyObject]
         
         let photos = Engine.shared.mapPhotos(from: json)
         
